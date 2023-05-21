@@ -5,16 +5,11 @@ library(euroleagueRscrape)
 
 all_results <- readRDS("data/initial-extracts/euroleague_match_results.rds")
 
-game_list <- euroleagueRscrape::get_box_list(gamecode = 20, seasoncode = "E2022")
-
-test_team <- get_box_stats(box_list = game_list, team_or_player = "team")
-test_player <- get_box_stats(box_list = game_list, team_or_player = "player")
-
 team_box_all_seasons <- data.frame()
 player_box_all_seasons <- data.frame()
 
 
-seasons_to_get <- paste0("E", 2022)
+seasons_to_get <- paste0("E", c(2010:2022))
 
 for(each_season in seasons_to_get) {
   
@@ -27,7 +22,7 @@ for(each_season in seasons_to_get) {
   season_player_box_df <- data.frame()
   
   for(each_game in 1:nrow(results_df)) {
-    Sys.sleep(3)
+    Sys.sleep(1.5)
     
     game_list <- get_box_list(gamecode = results_df$code[each_game], seasoncode = results_df$season_code[each_game])
     
@@ -45,15 +40,13 @@ for(each_season in seasons_to_get) {
   
 }
 
-save_to_rel(df = player_box_all_seasons_2022, file_name = "player_box_2022", release_tag = "box_scores")
-save_to_rel(df = team_box_all_seasons_2022, file_name = "team_box_2022", release_tag = "box_scores")
+
+
+save_to_rel(df = player_box_all_seasons, file_name = "player_box_2010_to_2022", release_tag = "box_scores")
+save_to_rel(df = team_box_all_seasons, file_name = "team_box_2010_to_2022", release_tag = "box_scores")
 
 # saveRDS(team_box_all_seasons, "data/initial-extracts/team_box_all_seasons_2022.rds")
 # saveRDS(player_box_all_seasons, "data/initial-extracts/player_box_all_seasons_2022.rds")
-
-
-
-
 
 
 

@@ -1,6 +1,7 @@
 library(httr)
 library(dplyr)
 library(tidyr)
+library(rlang)
 library(euroleagueRscrape)
 
 current_season <- "E2022"
@@ -37,7 +38,7 @@ for(each_round in 1:nrow(round_scrape_df)) {
   df <- match_results(seasoncode = current_season, round_phase = round_scrape_df[each_round, "phase_type_code"], round_number = round_scrape_df[each_round, "round"])
   
   # remove any empty columns as these make joining really difficult if they're not removed
-  df[sapply(df, is_empty)] <- NULL
+  df[sapply(df, rlang::is_empty)] <- NULL
   
   df <- df |> mutate_if(is.list, as.character)
   
@@ -46,7 +47,8 @@ for(each_round in 1:nrow(round_scrape_df)) {
 
 # add updated results to existing season's data
 current_season_results <- current_season_results |> 
-  bind_rows(updated_results)
+  bind_rows(updated_results) |> 
+  distinct(season_code, code, .keep_all = T)
 
 # combine all together
 existing_results <- existing_results |> 

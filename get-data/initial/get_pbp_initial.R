@@ -1,6 +1,7 @@
 library(httr)
 library(dplyr)
 library(tidyr)
+library(janitor)
 library(euroleagueRscrape)
 
 # all_results <- readRDS("data/initial-extracts/euroleague_match_results.rds")
@@ -8,7 +9,7 @@ all_results <- readRDS(url("https://github.com/JaseZiv/euroleagueR_data/releases
 
 all_seasons_pbp <- data.frame()
 
-seasons_to_get <- paste0("E", 2015:2020)
+seasons_to_get <- paste0("E", 2010:2022)
 
 for(each_season in seasons_to_get) {
   
@@ -19,7 +20,7 @@ for(each_season in seasons_to_get) {
   all_pbp <- data.frame()
   
   for(each_game in 1:nrow(results_df)) {
-    Sys.sleep(3)
+    Sys.sleep(1)
     each_df <- get_each_pbp(gamecode = results_df$code[each_game], seasoncode = results_df$season_code[each_game])
     all_pbp <- bind_rows(all_pbp, each_df)
   }
@@ -28,8 +29,8 @@ for(each_season in seasons_to_get) {
   
 }
 
-save_to_rel(df = all_seasons_pbp, file_name = "pbp2013_to_2022", release_tag = "pbp")
-# saveRDS(all_seasons_pbp, "data/initial-extracts/pbp2013_to_2022.rds")
+save_to_rel(df = all_seasons_pbp, file_name = "pbp2015_to_2022", release_tag = "pbp")
+# saveRDS(all_seasons_pbp, "data/initial-extracts/pbp2015_to_2022.rds")
 
 
 

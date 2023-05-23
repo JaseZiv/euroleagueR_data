@@ -29,8 +29,13 @@ for(each_season in seasons_to_get) {
   
 }
 
-save_to_rel(df = all_seasons_pbp, file_name = "pbp2015_to_2022", release_tag = "pbp")
+save_to_rel(df = all_seasons_pbp, file_name = "pbp_from_2010", release_tag = "pbp")
 # saveRDS(all_seasons_pbp, "data/initial-extracts/pbp2015_to_2022.rds")
 
 
-
+for(each_season in seasons_to_get) {
+  print(paste0("saving season: ", each_season))
+  
+  each_pbp_df <- all_seasons_pbp |> filter(season_code == each_season)
+  save_to_rel(df = each_pbp_df, file_name = paste0("pbp_", gsub("E", "", each_season)), release_tag = "pbp")
+}

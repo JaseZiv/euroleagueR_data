@@ -23,7 +23,7 @@ for(each_season in 1:length(seasons)) {
   for(each_round in 1:nrow(round_scrape_df)) {
     Sys.sleep(2)
     
-    df <- get_match_results(season_code = seasons[each_season], round_phase = round_scrape_df[each_round, "phaseTypeCode"], round_number = round_scrape_df[each_round, "round"])
+    df <- match_results(seasoncode = seasons[each_season], round_phase = round_scrape_df[each_round, "phaseTypeCode"], round_number = round_scrape_df[each_round, "round"])
     
     # remove any empty columns as these make joining really difficult if they're not removed
     df[sapply(df, is_empty)] <- NULL

@@ -27,9 +27,9 @@ for(each_season in seasons_to_get) {
     game_list <- get_box_list(gamecode = results_df$code[each_game], seasoncode = results_df$season_code[each_game])
     
     team_box <- get_box_stats(box_list = game_list, team_or_player = "team")
-    team_box <- bind_cols(season = results_df$season_code[each_game], code=results_df$code[each_game], team_box)
+    team_box <- bind_cols(season_code = results_df$season_code[each_game], code=results_df$code[each_game], team_box)
     player_box <- get_box_stats(box_list = game_list, team_or_player = "player")
-    player_box <- bind_cols(season = results_df$season_code[each_game], code=results_df$code[each_game], player_box)
+    player_box <- bind_cols(season_code = results_df$season_code[each_game], code=results_df$code[each_game], player_box)
     
     season_team_box_df <- bind_rows(season_team_box_df, team_box)
     season_player_box_df <- bind_rows(season_player_box_df, player_box)
@@ -42,11 +42,23 @@ for(each_season in seasons_to_get) {
 
 
 
-save_to_rel(df = player_box_all_seasons, file_name = "player_box_2010_to_2022", release_tag = "box_scores")
-save_to_rel(df = team_box_all_seasons, file_name = "team_box_2010_to_2022", release_tag = "box_scores")
+save_to_rel(df = player_box_all_seasons, file_name = "player_box", release_tag = "box_scores")
+save_to_rel(df = team_box_all_seasons, file_name = "team_box", release_tag = "box_scores")
 
 # saveRDS(team_box_all_seasons, "data/initial-extracts/team_box_all_seasons_2022.rds")
 # saveRDS(player_box_all_seasons, "data/initial-extracts/player_box_all_seasons_2022.rds")
 
+seasons_to_get <- paste0("E", 2010:2022)
+
+
+for(each_season in seasons_to_get) {
+  print(paste0("saving season: ", each_season))
+  
+  each_team_box_df <- team_box_all_seasons |> filter(season_code == each_season)
+  save_to_rel(df = each_team_box_df, file_name = paste0("team_box_", gsub("E", "", each_season)), release_tag = "box_scores")
+  
+  each_player_box_df <- player_box_all_seasons |> filter(season_code == each_season)
+  save_to_rel(df = each_player_box_df, file_name = paste0("player_box_", gsub("E", "", each_season)), release_tag = "box_scores")
+}
 
 

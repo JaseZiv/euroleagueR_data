@@ -33,13 +33,16 @@ for(each_season in seasons_to_get) {
 }
 
 
-save_to_rel(df = all_seasons_shots, file_name = "shots2010_to_2022", release_tag = "shot_data")
+save_to_rel(df = all_seasons_shots, file_name = "shots_from_2010", release_tag = "shot_data")
 # saveRDS(all_seasons_shots, "data/initial-extracts/shots2010_to_2022.rds")
 
 
-
-
-
+for(each_season in seasons_to_get) {
+  print(paste0("saving season: ", each_season))
+  
+  each_shot_df <- all_seasons_shots |> filter(season_code == each_season)
+  save_to_rel(df = each_shot_df, file_name = paste0("shots_", gsub("E", "", each_season)), release_tag = "shot_data")
+}
 
 
 

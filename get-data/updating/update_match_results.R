@@ -1,10 +1,8 @@
-library(httr)
 library(dplyr)
-library(tidyr)
 library(rlang)
 library(euroleagueRscrape)
 
-current_season <- "E2022"
+current_season <- "E2023"
 
 # get season rounds data
 # all_season_rounds <- readRDS("data/updated-extracts/all_season_rounds.rds")
@@ -57,5 +55,5 @@ existing_results <- existing_results |>
 
 
 save_to_rel(df = existing_results, file_name = "euroleague_match_results", release_tag = "match_results")
-saveRDS(existing_results, "data/updated-extracts/euroleague_match_results.rds")
+# saveRDS(existing_results, "data/updated-extracts/euroleague_match_results.rds")
 

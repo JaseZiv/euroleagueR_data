@@ -10,27 +10,27 @@ results_df <- all_results |>
   filter(season_code == current_season)
 
 #==================================================================================================================================================#
-# this is just for the first games(s) of a new season so that we are able to create a new season's file in the Releases,
-# for subsequent reads of future matches:
-season_team_box_df <- data.frame()
-season_player_box_df <- data.frame()
-
-for(each_game in 1:nrow(results_df)) {
-  Sys.sleep(1.5)
-  
-  game_list <- get_box_list(gamecode = results_df$code[each_game], seasoncode = results_df$season_code[each_game])
-  
-  team_box <- get_box_stats(box_list = game_list, team_or_player = "team")
-  team_box <- bind_cols(season_code = results_df$season_code[each_game], code=results_df$code[each_game], team_box)
-  player_box <- get_box_stats(box_list = game_list, team_or_player = "player")
-  player_box <- bind_cols(season_code = results_df$season_code[each_game], code=results_df$code[each_game], player_box)
-  
-  season_team_box_df <- bind_rows(season_team_box_df, team_box)
-  season_player_box_df <- bind_rows(season_player_box_df, player_box)
-}
-
-save_to_rel(df = season_player_box_df, file_name = paste0("player_box_", gsub("E", "", current_season)), release_tag = "box_scores")
-save_to_rel(df = season_team_box_df, file_name = paste0("team_box_", gsub("E", "", current_season)), release_tag = "box_scores")
+# # this is just for the first games(s) of a new season so that we are able to create a new season's file in the Releases,
+# # for subsequent reads of future matches:
+# season_team_box_df <- data.frame()
+# season_player_box_df <- data.frame()
+# 
+# for(each_game in 1:nrow(results_df)) {
+#   Sys.sleep(1.5)
+#   
+#   game_list <- get_box_list(gamecode = results_df$code[each_game], seasoncode = results_df$season_code[each_game])
+#   
+#   team_box <- get_box_stats(box_list = game_list, team_or_player = "team")
+#   team_box <- bind_cols(season_code = results_df$season_code[each_game], code=results_df$code[each_game], team_box)
+#   player_box <- get_box_stats(box_list = game_list, team_or_player = "player")
+#   player_box <- bind_cols(season_code = results_df$season_code[each_game], code=results_df$code[each_game], player_box)
+#   
+#   season_team_box_df <- bind_rows(season_team_box_df, team_box)
+#   season_player_box_df <- bind_rows(season_player_box_df, player_box)
+# }
+# 
+# save_to_rel(df = season_player_box_df, file_name = paste0("player_box_", gsub("E", "", current_season)), release_tag = "box_scores")
+# save_to_rel(df = season_team_box_df, file_name = paste0("team_box_", gsub("E", "", current_season)), release_tag = "box_scores")
 
 
 #==================================================================================================================================================#

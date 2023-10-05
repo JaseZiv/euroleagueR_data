@@ -12,18 +12,18 @@ results_df <- all_results |>
 
 
 #==================================================================================================================================================#
-# this is just for the first games(s) of a new season so that we are able to create a new season's file in the Releases,
-# for subsequent reads of future matches:
-all_pbp <- data.frame()
-
-for(each_game in 1:nrow(results_df)) {
-  Sys.sleep(1)
-  each_df <- get_each_pbp(gamecode = results_df$code[each_game], seasoncode = results_df$season_code[each_game])
-  all_pbp <- bind_rows(all_pbp, each_df)
-}
-
-save_to_rel(df = all_pbp, file_name = paste0("pbp_", gsub("E", "", current_season)), release_tag = "pbp")
-
+# # this is just for the first games(s) of a new season so that we are able to create a new season's file in the Releases,
+# # for subsequent reads of future matches:
+# all_pbp <- data.frame()
+# 
+# for(each_game in 1:nrow(results_df)) {
+#   Sys.sleep(1)
+#   each_df <- get_each_pbp(gamecode = results_df$code[each_game], seasoncode = results_df$season_code[each_game])
+#   all_pbp <- bind_rows(all_pbp, each_df)
+# }
+# 
+# save_to_rel(df = all_pbp, file_name = paste0("pbp_", gsub("E", "", current_season)), release_tag = "pbp")
+# 
 #==================================================================================================================================================#
 
 

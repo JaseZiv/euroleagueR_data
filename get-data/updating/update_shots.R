@@ -11,18 +11,18 @@ results_df <- all_results |>
 
 
 #==================================================================================================================================================#
-# this is just for the first games(s) of a new season so that we are able to create a new season's file in the Releases,
-# for subsequent reads of future matches:
-all_shots <- data.frame()
-
-for(each_game in 1:nrow(results_df)) {
-  Sys.sleep(1)
-  each_df <- euroleagueRscrape::get_each_shots(gamecode = results_df$code[each_game], seasoncode = results_df$season_code[each_game])
-  all_shots <- bind_rows(all_shots, each_df)
-}
-
-save_to_rel(df = all_shots, file_name = paste0("shots_", gsub("E", "", current_season)), release_tag = "shot_data")
-
+# # this is just for the first games(s) of a new season so that we are able to create a new season's file in the Releases,
+# # for subsequent reads of future matches:
+# all_shots <- data.frame()
+# 
+# for(each_game in 1:nrow(results_df)) {
+#   Sys.sleep(1)
+#   each_df <- euroleagueRscrape::get_each_shots(gamecode = results_df$code[each_game], seasoncode = results_df$season_code[each_game])
+#   all_shots <- bind_rows(all_shots, each_df)
+# }
+# 
+# save_to_rel(df = all_shots, file_name = paste0("shots_", gsub("E", "", current_season)), release_tag = "shot_data")
+# 
 #==================================================================================================================================================#
 
 

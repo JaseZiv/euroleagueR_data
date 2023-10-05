@@ -1,6 +1,4 @@
-library(httr)
 library(dplyr)
-library(janitor)
 library(euroleagueRscrape)
 
 # seasons_df <- readRDS("data/initial-extracts/euroleague_seasons.rds")

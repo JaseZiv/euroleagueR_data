@@ -16,6 +16,12 @@ current_season_results <- existing_results |>
   filter(season_code == current_season) |> 
   filter(audience_confirmed == "TRUE")
 
+# now we also want to remove the most recent round played and re-scrape until a new round becomes available
+last_round <- max(as.numeric(current_season_results$round_round))
+current_season_results <- current_season_results |> 
+  filter(round_round != as.character(last_round))
+
+
 # only get the match rounds for the current season that haven't yet been played
 round_scrape_df <- all_season_rounds|> 
   filter(season_code == current_season) |> 

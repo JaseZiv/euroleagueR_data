@@ -49,6 +49,9 @@ for(each_game in 1:nrow(missing_matches)) {
   new_shots_df <- bind_rows(new_shots_df, each_df)
 }
 
+new_shots_df <- new_shots_df |> 
+  mutate(code = as.character(code))
+
 existing_shots <- existing_shots |> 
   bind_rows(new_shots_df)
 

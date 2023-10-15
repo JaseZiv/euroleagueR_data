@@ -1,14 +1,17 @@
 library(dplyr)
 library(euroleagueRscrape)
 
+source(paste0(here::here(), "/R/helpers.R"))
+
 # seasons_df <- readRDS("data/initial-extracts/euroleague_seasons.rds")
-seasons_df <- readRDS(url("https://github.com/JaseZiv/euroleagueR_data/releases/download/league_meta/euroleague_seasons.rds"))
+# seasons_df <- readRDS(url("https://github.com/JaseZiv/euroleagueR_data/releases/download/league_meta/euroleague_seasons.rds"))
+seasons_df <- read_from_rel(file_name = "euroleague_seasons", repo_name = "euroleagueR_data", tag_name = "league_meta")
 
 current_season <- "E2023"
 
 # existing_season_rounds <- readRDS("data/initial-extracts/all_season_rounds.rds")
-existing_season_rounds <- readRDS(url("https://github.com/JaseZiv/euroleagueR_data/releases/download/league_meta/all_season_rounds.rds"))
-
+# existing_season_rounds <- readRDS(url("https://github.com/JaseZiv/euroleagueR_data/releases/download/league_meta/all_season_rounds.rds"))
+existing_season_rounds <- read_from_rel(file_name = "all_season_rounds", repo_name = "euroleagueR_data", tag_name = "league_meta")
 
 current_season_rounds <-  get_season_rounds(seasoncode = current_season)
 

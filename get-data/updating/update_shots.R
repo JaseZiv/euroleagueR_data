@@ -50,6 +50,7 @@ for(each_game in 1:nrow(missing_matches)) {
   Sys.sleep(1.5)
   
   each_df <- get_each_shots(gamecode = missing_matches$code[each_game], seasoncode = missing_matches$season_code[each_game])
+  each_df$code <- as.character(each_df$code)
   new_shots_df <- bind_rows(new_shots_df, each_df)
 }
 

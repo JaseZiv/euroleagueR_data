@@ -51,6 +51,7 @@ for(each_game in 1:nrow(missing_matches)) {
   Sys.sleep(1.5)
   
   each_df <- get_each_pbp(gamecode = missing_matches$code[each_game], seasoncode = missing_matches$season_code[each_game])
+  each_df$code <- as.character(each_df$code)
   new_pbp_df <- bind_rows(new_pbp_df, each_df)
   new_pbp_df <- new_pbp_df |> 
     mutate(code = as.character(code))

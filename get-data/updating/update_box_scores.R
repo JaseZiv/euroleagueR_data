@@ -1,9 +1,13 @@
 library(euroleagueRscrape)
 library(dplyr)
 
+
+source(paste0(here::here(), "/R/helpers.R"))
+
 current_season <- "E2023"
 
-all_results <- readRDS(url("https://github.com/JaseZiv/euroleagueR_data/releases/download/match_results/euroleague_match_results.rds"))
+# all_results <- readRDS(url("https://github.com/JaseZiv/euroleagueR_data/releases/download/match_results/euroleague_match_results.rds"))
+all_results <- read_from_rel(file_name = "euroleague_match_results", repo_name = "euroleagueR_data", tag_name = "match_results")
 
 results_df <- all_results |> 
   filter(audience_confirmed == "TRUE") |> 
@@ -39,9 +43,10 @@ results_df <- all_results |>
 
 # the below is for when there is already some data for the current season saved:
 
-existing_team_box <- tryCatch(readRDS(url(paste0("https://github.com/JaseZiv/euroleagueR_data/releases/download/box_scores/team_box_", gsub("E", "", current_season), ".rds"))), error = function(e) data.frame())
-existing_player_box <- tryCatch(readRDS(url(paste0("https://github.com/JaseZiv/euroleagueR_data/releases/download/box_scores/player_box_", gsub("E", "", current_season), ".rds"))), error = function(e) data.frame())
-
+# existing_team_box <- tryCatch(readRDS(url(paste0("https://github.com/JaseZiv/euroleagueR_data/releases/download/box_scores/team_box_", gsub("E", "", current_season), ".rds"))), error = function(e) data.frame())
+existing_team_box <- read_from_rel(file_name = paste0("team_box_", gsub("E", "", current_season)), repo_name = "euroleagueR_data", tag_name = "box_scores")
+# existing_player_box <- tryCatch(readRDS(url(paste0("https://github.com/JaseZiv/euroleagueR_data/releases/download/box_scores/player_box_", gsub("E", "", current_season), ".rds"))), error = function(e) data.frame())
+existing_player_box <- read_from_rel(file_name = paste0("player_box_", gsub("E", "", current_season)), repo_name = "euroleagueR_data", tag_name = "box_scores")
 
 missing_matches <- results_df |> select(season_code, code) |> 
   anti_join(existing_player_box, by = c("season_code", "code"))

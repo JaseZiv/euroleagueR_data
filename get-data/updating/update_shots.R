@@ -1,9 +1,12 @@
 library(euroleagueRscrape)
 library(dplyr)
 
+source(paste0(here::here(), "/R/helpers.R"))
+
 current_season <- "E2023"
 
-all_results <- readRDS(url("https://github.com/JaseZiv/euroleagueR_data/releases/download/match_results/euroleague_match_results.rds"))
+# all_results <- readRDS(url("https://github.com/JaseZiv/euroleagueR_data/releases/download/match_results/euroleague_match_results.rds"))
+all_results <- read_from_rel(file_name = "euroleague_match_results", repo_name = "euroleagueR_data", tag_name = "match_results")
 
 results_df <- all_results |> 
   filter(audience_confirmed == "TRUE") |> 
@@ -26,7 +29,8 @@ results_df <- all_results |>
 #==================================================================================================================================================#
 
 
-existing_shots <- readRDS(url(paste0("https://github.com/JaseZiv/euroleagueR_data/releases/download/shot_data/shots_", gsub("E", "", current_season), ".rds")))
+# existing_shots <- readRDS(url(paste0("https://github.com/JaseZiv/euroleagueR_data/releases/download/shot_data/shots_", gsub("E", "", current_season), ".rds")))
+existing_shots <- read_from_rel(file_name = paste0("shots_", gsub("E", "", current_season)), repo_name = "euroleagueR_data", tag_name = "shot_data")
 
 
 

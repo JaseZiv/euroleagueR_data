@@ -2,14 +2,19 @@ library(dplyr)
 library(rlang)
 library(euroleagueRscrape)
 
+source(paste0(here::here(), "/R/helpers.R"))
+
 current_season <- "E2023"
 
 # get season rounds data
 # all_season_rounds <- readRDS("data/updated-extracts/all_season_rounds.rds")
-all_season_rounds <- readRDS(url("https://github.com/JaseZiv/euroleagueR_data/releases/download/league_meta/all_season_rounds.rds"))
+# all_season_rounds <- readRDS(url("https://github.com/JaseZiv/euroleagueR_data/releases/download/league_meta/all_season_rounds.rds"))
+
+all_season_rounds <- read_from_rel(file_name = "all_season_rounds", repo_name = "euroleagueR_data", tag_name = "league_meta")
 
 # read in the existing match results data
-existing_results <- readRDS(url("https://github.com/JaseZiv/euroleagueR_data/releases/download/match_results/euroleague_match_results.rds"))
+# existing_results <- readRDS(url("https://github.com/JaseZiv/euroleagueR_data/releases/download/match_results/euroleague_match_results.rds"))
+existing_results <- read_from_rel(file_name = "euroleague_match_results", repo_name = "euroleagueR_data", tag_name = "match_results")
 
 # filter down so we only have current season's results, and matches that have been played
 current_season_results <- existing_results |> 

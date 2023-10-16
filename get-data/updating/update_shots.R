@@ -46,16 +46,21 @@ missing_matches <- results_df |>
 
 new_shots_df <- data.frame()
 
-for(each_game in 1:nrow(missing_matches)) {
-  Sys.sleep(1.5)
+if(nrow(missing_matches) > 0) {
   
-  each_df <- get_each_shots(gamecode = missing_matches$code[each_game], seasoncode = missing_matches$season_code[each_game])
-  each_df$code <- as.character(each_df$code)
-  new_shots_df <- bind_rows(new_shots_df, each_df)
+  for(each_game in 1:nrow(missing_matches)) {
+    Sys.sleep(1.5)
+    
+    each_df <- get_each_shots(gamecode = missing_matches$code[each_game], seasoncode = missing_matches$season_code[each_game])
+    each_df$code <- as.character(each_df$code)
+    new_shots_df <- bind_rows(new_shots_df, each_df)
+  }
+  
+  new_shots_df <- new_shots_df |> 
+    mutate(code = as.character(code))
+  
 }
 
-new_shots_df <- new_shots_df |> 
-  mutate(code = as.character(code))
 
 existing_shots <- existing_shots |> 
   bind_rows(new_shots_df)

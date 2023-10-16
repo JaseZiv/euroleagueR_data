@@ -58,15 +58,17 @@ new_player_box_df <- data.frame()
 for(each_game in 1:nrow(missing_matches)) {
   Sys.sleep(1.5)
   
-  game_list <- get_box_list(gamecode = missing_matches$code[each_game], seasoncode = missing_matches$season_code[each_game])
+  game_list <- tryCatch(get_box_list(gamecode = missing_matches$code[each_game], seasoncode = missing_matches$season_code[each_game]), error = function(e) list())
   
-  team_box <- get_box_stats(box_list = game_list, team_or_player = "team")
-  team_box <- bind_cols(season_code = missing_matches$season_code[each_game], code=missing_matches$code[each_game], team_box)
-  player_box <- get_box_stats(box_list = game_list, team_or_player = "player")
-  player_box <- bind_cols(season_code = missing_matches$season_code[each_game], code=missing_matches$code[each_game], player_box)
-  
-  new_team_box_df <- bind_rows(new_team_box_df, team_box)
-  new_player_box_df <- bind_rows(new_player_box_df, player_box)
+  if(length(game_list) > 0) {
+    team_box <- get_box_stats(box_list = game_list, team_or_player = "team")
+    team_box <- bind_cols(season_code = missing_matches$season_code[each_game], code=missing_matches$code[each_game], team_box)
+    player_box <- get_box_stats(box_list = game_list, team_or_player = "player")
+    player_box <- bind_cols(season_code = missing_matches$season_code[each_game], code=missing_matches$code[each_game], player_box)
+    
+    new_team_box_df <- bind_rows(new_team_box_df, team_box)
+    new_player_box_df <- bind_rows(new_player_box_df, player_box)
+  } 
 }
 
 

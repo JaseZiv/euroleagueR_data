@@ -45,5 +45,5 @@ for(i in seasons) {
 
 all_clubs <- janitor::clean_names(all_clubs)
 
-save_to_rel(df = all_clubs, file_name = "euroleague_clubs", release_tag = "league_meta")
+euroleagueRscrape::save_to_rel(df = all_clubs, file_name = "euroleague_clubs", release_tag = "league_meta")
 # saveRDS(all_clubs, "data/initial-extracts/euroleague_clubs.rds")

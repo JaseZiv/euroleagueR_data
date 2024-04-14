@@ -32,3 +32,5 @@ jobs:
         run: Rscript -e 'source(file.path("get-data", "updating", "update_pbp.R"), echo = TRUE)'
       - name: Update shots
         run: Rscript -e 'source(file.path("get-data", "updating", "update_shots.R"), echo = TRUE)'
+      - name: Update csv files
+        run: Rscript -e 'source(file.path("get-data", "updating", "save_csvs.R"), echo = TRUE)'

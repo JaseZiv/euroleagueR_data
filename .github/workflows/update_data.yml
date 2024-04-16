@@ -19,7 +19,7 @@ jobs:
       - uses: actions/checkout@v2
       - uses: r-lib/actions/setup-r@v2
       - name: Package Installation
-        run: Rscript -e 'install.packages(c("remotes", "dplyr", "rlang", "here", "piggyback"))'
+        run: Rscript -e 'install.packages(c("remotes", "dplyr", "tidyr", "httr", "rlang", "here", "piggyback"))'
       - name: euroleagueRscrape Installation
         run: Rscript -e 'remotes::install_github("JaseZiv/euroleagueRscrape")'
       - name: Update season round metadata
@@ -34,3 +34,5 @@ jobs:
         run: Rscript -e 'source(file.path("get-data", "updating", "update_shots.R"), echo = TRUE)'
       - name: Update csv files
         run: Rscript -e 'source(file.path("get-data", "updating", "save_csvs.R"), echo = TRUE)'
+      - name: Update player bios
+        run: Rscript -e 'source(file.path("get-data", "updating", "update_player_bios.R"), echo = TRUE)'

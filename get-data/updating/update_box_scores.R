@@ -4,7 +4,7 @@ library(dplyr)
 
 source(paste0(here::here(), "/R/helpers.R"))
 
-current_season <- "E2023"
+current_season <- "E2024"
 
 # all_results <- readRDS(url("https://github.com/JaseZiv/euroleagueR_data/releases/download/match_results/euroleague_match_results.rds"))
 all_results <- read_from_rel(file_name = "euroleague_match_results", repo_name = "euroleagueR_data", tag_name = "match_results")

@@ -41,7 +41,7 @@ clean_team_df <- function(team_list) {
 
 source(paste0(here::here(), "/R/helpers.R"))
 
-current_season <- "E2023"
+current_season <- "E2024"
 
 euroleague_clubs <- read_from_rel(file_name = "euroleague_clubs", repo_name = "euroleagueR_data", tag_name = "league_meta")
 

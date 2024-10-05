@@ -7,7 +7,7 @@ source(paste0(here::here(), "/R/helpers.R"))
 # seasons_df <- readRDS(url("https://github.com/JaseZiv/euroleagueR_data/releases/download/league_meta/euroleague_seasons.rds"))
 seasons_df <- read_from_rel(file_name = "euroleague_seasons", repo_name = "euroleagueR_data", tag_name = "league_meta")
 
-current_season <- "E2023"
+current_season <- "E2024"
 
 # existing_season_rounds <- readRDS("data/initial-extracts/all_season_rounds.rds")
 # existing_season_rounds <- readRDS(url("https://github.com/JaseZiv/euroleagueR_data/releases/download/league_meta/all_season_rounds.rds"))

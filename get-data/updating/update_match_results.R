@@ -4,7 +4,7 @@ library(euroleagueRscrape)
 
 source(paste0(here::here(), "/R/helpers.R"))
 
-current_season <- "E2023"
+current_season <- "E2024"
 
 # get season rounds data
 # all_season_rounds <- readRDS("data/updated-extracts/all_season_rounds.rds")
